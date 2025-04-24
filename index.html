@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <title>مواقيت الصلاة</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>  
+<body>
+  <div class="prayer-widget">
+    <h1>مواقيت الصلاة في مصر</h1>
+    <select id="city" class="city-select">
+      <option value="Cairo">القاهرة</option>
+      <option value="Alexandria">الإسكندرية</option>
+      <option value="Giza">الجيزة</option>
+      <option value="Sharm El-Sheikh">شرم الشيخ</option>
+      <option value="Luxor">الأقصر</option>
+      <option value="Aswan">أسوان</option>
+      <option value="Damietta">دمياط</option>
+      <option value="Mansoura">المنصورة</option>
+      <option value="Kafr El Sheikh">كفر الشيخ</option>
+    </select>
+    <select id="adhan-select" class="city-select">
+      <option value="الشيخ محمد صديق المنشاوي.mp3">أذان الشيخ محمد صديق المنشاوي</option>
+      <option value="الشيخ ناصر القطامي.mp3">أذان الشيخ ناصر القطامي</option>
+      <option value="أذان مشاري راشد العفاسي.mp3">أذان مشاري راشد العفاسي</option>
+    </select>
+    <label><input type="checkbox" id="adhan-toggle" checked> تشغيل الأذان</label>
+    <div class="date-wrapper">
+      <div class="date" id="date"></div>
+      <div class="hijri-date" id="hijri-date"></div>
+    </div>    
+    <div class="prayer-times">
+      <div class="prayer-time" id="fajr">
+        <i class="fas fa-sun icon"></i><span>الفجر</span><span id="fajr-time"></span>
+      </div>
+      <div class="prayer-time" id="sunrise">
+        <i class="fas fa-sun icon"></i><span>الشروق</span><span id="sunrise-time"></span>
+      </div>
+      <div class="prayer-time" id="dhuhr">
+        <i class="fas fa-cloud-sun icon"></i><span>الظهر</span><span id="dhuhr-time"></span>
+      </div>
+      <div class="prayer-time" id="asr">
+        <i class="fas fa-sun icon"></i><span>العصر</span><span id="asr-time"></span>
+      </div>
+      <div class="prayer-time" id="maghrib">
+        <i class="fas fa-sunset icon"></i><span>المغرب</span><span id="maghrib-time"></span>
+      </div>
+      <div class="prayer-time" id="isha">
+        <i class="fas fa-moon icon"></i><span>العشاء</span><span id="isha-time"></span>
+      </div>
+    </div>
+    <audio id="adhan-audio" src="الشيخ محمد صديق المنشاوي.mp3"></audio>
+  </div>
+  <script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93555938cfceb0a5',t:'MTc0NTQ5NTA2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

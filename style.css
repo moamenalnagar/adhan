@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Amiri', serif;
+  background: url('images/pexels-mohamad-tamer-2406731.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6), linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+  z-index: 0;
+}
+
+.prayer-widget {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  padding: 30px;
+  width: 380px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.city-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+}
+
+.city-select:focus {
+  outline: none;
+  border-color: #ffcc00;
+}
+
+.date-wrapper {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.date, .hijri-date {
+  font-size: 1.2em;
+  margin: 5px 0;
+  color: #ffcc00;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  font-family: 'Amiri', serif;
+}
+
+.prayer-times {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prayer-time {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+
+.prayer-time:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 30px;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+}
+
+span {
+  font-size: 16px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.prayer-time.active {
+  color: #ffcc00;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.time-remaining {
+  font-size: 14px;
+  color: #ffcc00;
+  font-weight: bold;
+  margin-left: 10px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.next-indicator {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 18px;
+  color: #00ff99;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+

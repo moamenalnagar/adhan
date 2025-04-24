@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مواقيت الصلاة - مصر</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="prayer-widget">
+    <h2>مواقيت الصلاة في مصر</h2>
+    <select id="city">
+      <option value="Cairo">القاهرة</option>
+      <option value="Alexandria">الإسكندرية</option>
+      <option value="Giza">الجيزة</option>
+      <option value="Sharm El-Sheikh">شرم الشيخ</option>
+      <option value="Luxor">الأقصر</option>
+      <option value="Aswan">أسوان</option>
+    </select>
+    <div class="date" id="date"></div>
+    <div class="prayer-time" id="fajr"></div>
+    <div class="prayer-time" id="sunrise"></div>
+    <div class="prayer-time" id="dhuhr"></div>
+    <div class="prayer-time" id="asr"></div>
+    <div class="prayer-time" id="maghrib"></div>
+    <div class="prayer-time" id="isha"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
