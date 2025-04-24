@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <head>
-    <meta charset="UTF-8" />
-    <title>مواقيت الصلاة</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  </head>  
+  <title>مواقيت الصلاة</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 <body>
   <div class="prayer-widget">
     <h1>مواقيت الصلاة في مصر</h1>
@@ -23,11 +21,39 @@
       <option value="Mansoura">المنصورة</option>
       <option value="Kafr El Sheikh">كفر الشيخ</option>
     </select>
-    <select id="adhan-select" class="city-select">
-      <option value="الشيخ محمد صديق المنشاوي.mp3">أذان الشيخ محمد صديق المنشاوي</option>
-      <option value="الشيخ ناصر القطامي.mp3">أذان الشيخ ناصر القطامي</option>
-      <option value="أذان مشاري راشد العفاسي.mp3">أذان مشاري راشد العفاسي</option>
-    </select>
+
+    <div class="adhan-select-wrapper">
+      <div class="adhan-label">اختر الأذان:</div>
+      <div class="custom-select">
+        <div class="selected-option" id="selected-adhan">
+          <span>أذان الشيخ محمد صديق المنشاوي</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <ul class="options-list" id="adhan-options">
+          <li data-value="الشيخ محمد صديق المنشاوي.mp3">
+            <span>أذان الشيخ محمد صديق المنشاوي</span>
+            <button class="play-preview" onclick="previewAdhan('الشيخ محمد صديق المنشاوي.mp3')">▶</button>
+          </li>
+          <li data-value="الشيخ ناصر القطامي.mp3">
+            <span>أذان الشيخ ناصر القطامي</span>
+            <button class="play-preview" onclick="previewAdhan('الشيخ ناصر القطامي.mp3')">▶</button>
+          </li>
+          <li data-value="أذان مشاري راشد العفاسي.mp3">
+            <span>أذان مشاري راشد العفاسي</span>
+            <button class="play-preview" onclick="previewAdhan('أذان مشاري راشد العفاسي.mp3')">▶</button>
+          </li>
+          <li data-value="الشيخ محمود خليل الحصري.mp3">
+            <span>أذان الشيخ محمود خليل الحصري</span>
+            <button class="play-preview" onclick="previewAdhan('الشيخ محمود خليل الحصري.mp3')">▶</button>
+          </li>
+          <li data-value="الشيخ عبد الباسط عبد الصمد.mp3">
+            <span>أذان الشيخ عبد الباسط عبد الصمد</span>
+            <button class="play-preview" onclick="previewAdhan('الشيخ عبد الباسط عبد الصمد.mp3')">▶</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <label><input type="checkbox" id="adhan-toggle" checked> تشغيل الأذان</label>
     <div class="date-wrapper">
       <div class="date" id="date"></div>
@@ -53,9 +79,8 @@
         <i class="fas fa-moon icon"></i><span>العشاء</span><span id="isha-time"></span>
       </div>
     </div>
-    <audio id="adhan-audio" src="الشيخ محمد صديق المنشاوي.mp3"></audio>
+    <audio id="adhan-audio"></audio>
   </div>
   <script src="script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93555938cfceb0a5',t:'MTc0NTQ5NTA2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93555938cfceb0a5',t:'MTc0NTQ5NTA2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
-</html>
