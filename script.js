@@ -8,9 +8,12 @@ const prayerMap = {
 };
 
 let playedPrayers = {};
+let selectedAdhan = localStorage.getItem('selectedAdhan') || "الشيخ محمد صديق المنشاوي.mp3";
+let isPreviewing = false;
 
 async function updateTimes() {
-  const city = document.getElementById('city').value;
+  const citySelect = document.getElementById('city');
+  const city = citySelect.value;
   try {
     const res = await fetch(
       `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Egypt&method=5`
@@ -35,16 +38,15 @@ async function updateTimes() {
     let nextPrayerTimeInMinutes = Infinity;
 
     const adhanAudio = document.getElementById('adhan-audio');
-    const adhanSelect = document.getElementById('adhan-select');
     const adhanToggle = document.getElementById('adhan-toggle');
-    adhanAudio.src = adhanSelect.value;
+    adhanAudio.src = selectedAdhan;
     const currentDate = now.toISOString().split('T')[0];
 
     for (const id of Object.keys(prayerMap)) {
       if (id === 'sunrise') continue;
       const [h, m] = timings[prayerMap[id].key].split(':').map(Number);
       const prayerTimeInMinutes = h * 60 + m;
-      if (nowMinutes === prayerTimeInMinutes && !playedPrayers[`${currentDate}-${id}`] && adhanToggle.checked) {
+      if (nowMinutes === prayerTimeInMinutes && !playedPrayers[`${currentDate}-${id}`] && adhanToggle.checked && !isPreviewing) {
         adhanAudio.play().catch(e => console.error('Error playing Adhan:', e));
         playedPrayers[`${currentDate}-${id}`] = true;
       }
@@ -160,12 +162,125 @@ function convertNumbersToArabic(num) {
   return num.toString().split('').map(digit => arabicNumbers[digit]).join('');
 }
 
+function toggleOptionsList() {
+  const selectedOption = document.querySelector('.selected-option');
+  const optionsList = document.querySelector('.options-list');
+  selectedOption.classList.toggle('open');
+  optionsList.classList.toggle('open');
+}
+
+function selectAdhan(adhanSrc, adhanLabel) {
+  selectedAdhan = adhanSrc;
+  localStorage.setItem('selectedAdhan', adhanSrc);
+  localStorage.setItem('selectedAdhanLabel', adhanLabel);
+
+  const selectedOption = document.querySelector('.selected-option span');
+  selectedOption.textContent = adhanLabel;
+
+  const adhanAudio = document.getElementById('adhan-audio');
+  adhanAudio.src = selectedAdhan;
+  adhanAudio.pause();
+  adhanAudio.currentTime = 0;
+  isPreviewing = false;
+
+  const playButtons = document.querySelectorAll('.play-preview');
+  playButtons.forEach(button => {
+    button.textContent = '▶';
+    button.setAttribute('onclick', `previewAdhan('${button.getAttribute('onclick').match(/'([^']+)'/)[1]}')`);
+  });
+
+  toggleOptionsList();
+}
+
+function previewAdhan(adhanSrc) {
+  const adhanAudio = document.getElementById('adhan-audio');
+  const playButtons = document.querySelectorAll('.play-preview');
+
+  adhanAudio.pause();
+  adhanAudio.currentTime = 0;
+
+  adhanAudio.src = adhanSrc;
+
+  isPreviewing = true;
+  adhanAudio.play().catch(e => console.error('Error playing Adhan preview:', e));
+
+  playButtons.forEach(button => {
+    if (button.getAttribute('onclick').includes(adhanSrc)) {
+      button.textContent = '⏹';
+      button.setAttribute('onclick', `stopPreviewAdhan('${adhanSrc}')`);
+    } else {
+      button.textContent = '▶';
+      button.setAttribute('onclick', `previewAdhan('${button.getAttribute('onclick').match(/'([^']+)'/)[1]}')`);
+    }
+  });
+
+  adhanAudio.onended = () => {
+    isPreviewing = false;
+    playButtons.forEach(button => {
+      button.textContent = '▶';
+      button.setAttribute('onclick', `previewAdhan('${button.getAttribute('onclick').match(/'([^']+)'/)[1]}')`);
+    });
+  };
+}
+
+function stopPreviewAdhan(adhanSrc) {
+  const adhanAudio = document.getElementById('adhan-audio');
+  const playButtons = document.querySelectorAll('.play-preview');
+
+  adhanAudio.pause();
+  adhanAudio.currentTime = 0;
+  isPreviewing = false;
+
+  playButtons.forEach(button => {
+    button.textContent = '▶';
+    button.setAttribute('onclick', `previewAdhan('${button.getAttribute('onclick').match(/'([^']+)'/)[1]}')`);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const citySelect = document.getElementById('city');
+  const savedCity = localStorage.getItem('selectedCity');
+  if (savedCity) {
+    citySelect.value = savedCity;
+  }
+  citySelect.addEventListener('change', () => {
+    localStorage.setItem('selectedCity', citySelect.value);
+    updateTimes();
+  });
+
+  const savedAdhan = localStorage.getItem('selectedAdhan');
+  const savedAdhanLabel = localStorage.getItem('selectedAdhanLabel');
+  if (savedAdhan && savedAdhanLabel) {
+    selectedAdhan = savedAdhan;
+    const selectedOption = document.querySelector('.selected-option span');
+    selectedOption.textContent = savedAdhanLabel;
+  }
+
   updateTimes();
-  document.getElementById('city').addEventListener('change', updateTimes);
-  document.getElementById('adhan-select').addEventListener('change', () => {
-    const adhanAudio = document.getElementById('adhan-audio');
-    adhanAudio.src = document.getElementById('adhan-select').value;
+
+  const selectedOption = document.querySelector('.selected-option');
+  selectedOption.addEventListener('click', toggleOptionsList);
+
+  const options = document.querySelectorAll('.options-list li');
+  options.forEach(option => {
+    option.addEventListener('click', (event) => {
+      if (option.querySelector('.play-preview').contains(event.target)) {
+        return;
+      }
+      const adhanSrc = option.getAttribute('data-value');
+      const adhanLabel = option.querySelector('span').textContent;
+      selectAdhan(adhanSrc, adhanLabel);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    const customSelect = document.querySelector('.custom-select');
+    if (!customSelect.contains(event.target)) {
+      const optionsList = document.querySelector('.options-list');
+      const selectedOption = document.querySelector('.selected-option');
+      optionsList.classList.remove('open');
+      selectedOption.classList.remove('open');
+    }
   });
 });
 
